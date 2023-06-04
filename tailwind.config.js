@@ -6,7 +6,8 @@ module.exports = {
 
       backgroundImage : {
        
-        "Banner" : "url(./assets/maya.webp)"
+        "banner":"url(./components/Image.webp)"
+         
 
       }
     },
