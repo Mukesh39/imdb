@@ -19,7 +19,7 @@ function App() {
        <>
     <Banner/>
     <Movies/>
-    <Pagination/> </> } > 
+    </> } > 
     </Route>
 
 

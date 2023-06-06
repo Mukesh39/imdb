@@ -1,23 +1,11 @@
 import React from 'react';
 import {useState} from 'react';
 
-const Pagination = () => {
 
+const Pagination = (props) => {
 
-  const [ pageNum  , setPage]  =  useState(1);
-
-  const onPrev =()=>{
-
-   if(pageNum > 1){
-         setPage( pageNum - 1 ); 
-        }
-    }
-
-
-    const onNext =()=>{
-            setPage( pageNum + 1 );            }
-       
-   
+let{pageNum , onNext, onPrev } = props ; 
+ 
 
   return (
     <div className='flex justify-center my-4'>

@@ -2,16 +2,28 @@ import React, { useState , useEffect } from 'react';
 import axios from 'axios';
 import maya from '../assets/maya.webp';
 import { Oval } from 'react-loader-spinner';
+import Pagination from './Pagination';
 
 
 
 
 const Movies = () => {
 
+ let [movies , setMovies] = useState([]);
+  const [pageNum  , setPage]  =  useState(1);
+
+  const onPrev =()=>{
+
+   if(pageNum > 1){
+         setPage( pageNum - 1 ); 
+        }
+    }
 
 
-
-  let [movies , setMovies] = useState([]);
+    const onNext =()=>{
+            setPage( pageNum + 1 );            }
+       
+   
 
 
   useEffect(function(){
@@ -19,7 +31,7 @@ const Movies = () => {
 
     (function () {
      axios.
-     get('https://api.themoviedb.org/3/trending/all/week?language=en-US&api_key=c329e49ea66541c60669781b65c43433&page=1')
+     get('https://api.themoviedb.org/3/trending/all/week?language=en-US&api_key=c329e49ea66541c60669781b65c43433&page='+pageNum)
      .then((res)=>{
       console.log(res.data.results);
       setMovies(res.data.results)
@@ -27,7 +39,7 @@ const Movies = () => {
 
      })
    }) () 
- } ,[])
+ } ,[pageNum])
    
 
 
@@ -43,9 +55,7 @@ const Movies = () => {
      <div className='flex justify-center  flex-wrap '> 
 
 
- {
-
-  movies.length == 0 ? <div className='flex justify-center'>  
+ {movies.length == 0 ? <div className='flex justify-center'>  
   <Oval
  height="80"
  width="80"
@@ -76,23 +86,17 @@ return (
     </div>
 
     </div>
-
-    
-      
-
 </div>
  )
 
-  })
-
-
- }  </div>
-
-
-
-     
-
-      
+  })}  
+  </div>
+    
+   <Pagination 
+    pageNum = {pageNum}
+    onNext={onNext}
+    onPrev={onPrev} 
+   ></Pagination>
     
     </div>
   )
