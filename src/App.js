@@ -23,9 +23,9 @@ function App() {
     </Route>
 
 
-    <Route path='/fav' element={<Favorite></Favorite>}>    </Route>
+    <Route path='/fav' element= {<Favorite></Favorite>}>    </Route>
 
-    <Route path='*'  element={<PageNotFound></PageNotFound>}></Route>
+    <Route path='*'  element= {<PageNotFound></PageNotFound>}></Route>
 
 
     </Routes>
