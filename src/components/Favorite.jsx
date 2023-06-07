@@ -1,3 +1,4 @@
+import { UserSwitch } from 'phosphor-react';
 import Pagination from '../components/Pagination';
 import React, { useState,  useEffect } from 'react'
 
@@ -106,12 +107,24 @@ let sampleMovies = [
 function Favourites() {
 
 
-  const [genres , setGenres ] = useState([]);
+  let [genres , setGenres ] = useState([]);
 
-  const [movies , setMovies] = useState(sampleMovies);
+   let [movies , setMovies] = useState(sampleMovies);
 
-  const [searchItem , setSearchItems] = useState("");
+   let [searchItem , setSearchItems] = useState("");
 
+   let [curGenre   , setCurrentgenre] = useState("All genre");
+
+   let [curRatingOrder , setRatingOrder ] = useState(0);
+
+   let [curPopularityOrder , setPopularityOrder] = useState(0);
+
+   let [noOfElements , setNoOfElements] = useState(2);
+
+   let [curPage  , setCurPage] = useState(2);
+
+
+  
 
  /* Delete the Movie */
 
@@ -125,6 +138,7 @@ function Favourites() {
 
   }
 
+  
 
 
   useEffect(()=>{
@@ -134,6 +148,14 @@ function Favourites() {
        setGenres(["All genre", ...temp ])
 
   },[])
+
+
+  //Here the curGenre is Now gener Recieved from Clicking the Different
+  // Genre as setting the state of Genre Loot at the step * 
+
+  let onCurGenre =(genre)=>{
+    setCurrentgenre(genre);
+  }
 
 
     let searchedMovies =  searchItem == ""? movies:movies.filter((movie)=>{
@@ -146,6 +168,84 @@ function Favourites() {
 
 
 
+    /* Filtering the genre for Ui  */ // Step * 
+
+    let filteredMovies = 
+    curGenre == "All genre" ? searchedMovies : 
+    searchedMovies.filter((searchedMovie)=> {
+      return genreids[searchedMovie.genre_ids[0]] == curGenre ;
+    })
+
+
+// Sorting the Movies
+
+if(curRatingOrder != 0) {
+  if(curRatingOrder == 1){
+    filteredMovies =  filteredMovies.sort((movieA , movieB )=>{
+   return movieA.vote_average - movieB.vote_average ; 
+    })
+  }
+
+
+  else if(curRatingOrder == -1) {
+    filteredMovies =  filteredMovies.sort((movieA , movieB )=>{
+      return movieB.vote_average - movieA.vote_average ; 
+       })
+  }
+}
+
+
+//sorting for Popularity Order 
+
+
+if(curPopularityOrder != 0) {
+  if(curPopularityOrder == 1){
+    filteredMovies =  filteredMovies.sort((movieA , movieB )=>{
+   return movieA.popularity - movieB.popularity ; 
+    })
+  }
+
+
+  else if(curPopularityOrder == -1) {
+    filteredMovies =  filteredMovies.sort((movieA , movieB )=>{
+      return movieB.popularity - movieA.popularity ; 
+       })
+  }
+}
+
+
+
+//Pagination In UI 
+
+console.log("Hello Bro " + noOfElements);
+let si =(noOfElements) * (Number(curPage)-1);  
+let ei = Number(noOfElements) + Number(si);
+
+let maxPageNum = Math.ceil(filteredMovies.length/noOfElements);
+
+filteredMovies = filteredMovies.slice(si , ei) ; 
+
+
+
+const onPrev = (pageNum)=>{
+  if(pageNum > 0 )
+  {
+    setCurPage(pageNum);
+  }
+}
+
+
+const onNext = (pageNum)=>{
+  if(pageNum <= maxPageNum )
+  {
+    setCurPage(pageNum);
+  }
+}
+
+
+
+
+
   return (
     <>
 
@@ -153,7 +253,18 @@ function Favourites() {
             {
         genres.map((genre)=>{
      return(
-      <button className='py-1 px-2 bg-gray-400 rounded-lg text-lg font-bold text-white  hover:bg-blue-400' >{genre}</button>
+      <button 
+      className={genre == curGenre ?`py-1 px-2  rounded-lg text-lg font-bold text-white  bg-blue-400 `:`py-1 px-2 bg-gray-400 rounded-lg text-lg font-bold text-white  hover:bg-blue-400`  }
+      
+       
+       
+
+    //  { /* The Genre  and UI Communication */ }
+
+     onClick={()=>{onCurGenre(genre)}}
+      
+      
+      >{genre}</button>
      )
 
 
@@ -170,15 +281,26 @@ function Favourites() {
               
               value = {searchItem} onChange={(e)=>{
                 setSearchItems(e.target.value);
+             
+                setCurPage(1);
+             
               }}
                
               />
-              <input type="number"  className='border-2 py-1  px-2 text-center'/>
+              <input type="number"  className='border-2 py-1  px-2 text-center' 
+               value={noOfElements} onChange={(e)=>{
+                setNoOfElements(e.target.value);
+
+                setCurPage(1);
+
+               }}
+              
+              />
           </div>
          
           
           <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-  <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+      <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
     <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
@@ -187,11 +309,27 @@ function Favourites() {
                 <div className = 'flex'>  
                 
                 
-                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png" class="mr-2 cursor-pointer"></img>
+                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png" class="mr-2 cursor-pointer"
+                
+                onClick={()=>{setRatingOrder(1)
+                
+                  setCurPage(1);
+                }}
+
+                
+                
+                ></img>
                 <div>
                 Rating
                 </div>  
-                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png" class="ml-2 mr-2"></img>
+                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png" class="ml-2 mr-2"
+                
+                onClick={()=>{setRatingOrder(-1)
+                
+                  setCurPage(1);
+                
+                }}
+                ></img>
                 
                 </div>
                 
@@ -204,11 +342,24 @@ function Favourites() {
                 <div className = 'flex'>  
                 
                 
-                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png" class="mr-2 cursor-pointer"></img>
+                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png" class="mr-2 cursor-pointer"  
+                
+                onClick={()=>{setPopularityOrder(1)
+                
+                  setCurPage(1); 
+                }}
+                ></img>
                 <div>
                 Popularity
                 </div>  
-                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png" class="ml-2 mr-2"></img>
+                <img src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png" class="ml-2 mr-2"
+
+                onClick={()=>{setPopularityOrder(-1)
+                  setCurPage(1);
+                }}
+               
+                
+                ></img>
                 
                 </div>
                 
@@ -221,7 +372,7 @@ function Favourites() {
 
     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
 
-      {searchedMovies.map((movie)=>{
+      {filteredMovies.map((movie)=>{
 
       { console.log(movie); }
 
@@ -275,12 +426,18 @@ function Favourites() {
       })}
 
 
-     
-
     </tbody>
   </table>
 </div>
-          <Pagination></Pagination>
+          <Pagination
+           
+          pageNum={curPage}
+          onPrev = {onPrev}
+          onNext = {onNext}
+          
+         
+          
+          ></Pagination>
     
   </>
   )
