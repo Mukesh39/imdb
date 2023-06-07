@@ -53,17 +53,8 @@ function Banner() {
       {bannerMovie.title}
       </div>
       
-      </div>
-
-
-      
+      </div> 
     }
-
-    
-
-
-
-    
 
     </>
 
