@@ -85,8 +85,6 @@ const Movies = () => {
 
 
 
-
-
   return (
 
     <div className='mt-8'>  
@@ -154,15 +152,7 @@ return (
       className='text-2xl'>❌</div>
 
     }
-    
-     
-    
-    
     </div>
-
-
-
-
 
     <div className=' text-xl text-white  bg-gray-900 p-2 bg-opacity-100  text-center w-full  rounded-b-xl  font-bold'>
     {movie.title || movie.name}
