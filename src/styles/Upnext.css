@@ -1,0 +1,79 @@
+/* Upnext Container */
+.upnext-movies {
+  display: flex;
+  align-items: flex-start;
+  background-color: #f8f9fa; /* Light background */
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+/* Image Section */
+.upnext-movies .image img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 16px;
+}
+
+/* Movie Info Section */
+.upnext-movie-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+/* Button Section */
+.upnext-movie-info .button button {
+  background-color: #007bff; /* Primary color */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upnext-movie-info .button button:hover {
+  background-color: #0056b3; /* Darker primary on hover */
+}
+
+/* Movie Info Text */
+.upnext-movie-info .movie-info p:first-child {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.upnext-movie-info .movie-info p {
+  margin: 0;
+  color: #6c757d; /* Secondary text color */
+}
+
+/* Like Button Section */
+.likeButton {
+  display: flex;
+  align-items: center;
+}
+
+.likeButton button {
+  background-color: #28a745; /* Success color */
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.likeButton button:hover {
+  background-color: #218838; /* Darker success on hover */
+}
+
+.likeButton img {
+  width: 24px;
+  height: 24px;
+}
