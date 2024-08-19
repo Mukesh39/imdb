@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 function PageNotFound() {
-  return (
-    <div> You Have Entered The Wrong Page </div>
-  )
+  return <div className="pagenotFound h-60  text-green text-2xl   font-medium mx-auto my-auto " > 
+  
+  You Have Entered The Wrong Page </div>;
 }
 
-export default PageNotFound
+export default PageNotFound;

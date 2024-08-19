@@ -1,6 +1,5 @@
 import React, { useState , useEffect } from 'react';
 import axios from 'axios';
-import maya from '../assets/maya.webp';
 import { Oval } from 'react-loader-spinner';
 import Pagination from './Pagination';
 
@@ -22,8 +21,7 @@ const Movies = () => {
 
 
     (function () {
-     axios.
-     get('https://api.themoviedb.org/3/trending/all/week?language=en-US&api_key=c329e49ea66541c60669781b65c43433&page='+pageNum)
+     axios.get('https://api.themoviedb.org/3/trending/all/week?language=en-US&api_key=c329e49ea66541c60669781b65c43433&page='+pageNum)
      .then((res)=>{
       console.log(res.data.results);
       setMovies(res.data.results)
@@ -76,7 +74,7 @@ const Movies = () => {
 
 
   const filteredFav = favourites.filter(elem => {
-    return elem != id ;
+    return elem !==id ;
   })
 
   setFavourites(filteredFav);
@@ -92,7 +90,7 @@ const Movies = () => {
      <div className='flex justify-center  flex-wrap '> 
 
 
- {movies.length == 0 ? <div className='flex justify-center'>  
+ {movies.length === 0 ? <div className='flex justify-center'>  
   <Oval
  height="80"
  width="80"
@@ -133,12 +131,12 @@ return (
     
     style={{
 
-      display : hovered == movie.id ? "block" : "none" 
+      display : hovered === movie.id ? "block" : "none" 
     }}
     >
 
     {
-    favourites.includes(movie.id) == false ? <div 
+    favourites.includes(movie.id) === false ? <div 
     className='text-2xl' 
 
     onClick={()=>{
