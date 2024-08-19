@@ -5,6 +5,7 @@ import "./App.css";
 // import Favorite from "./components/Favorite";
 // import PageNotFound from "./components/PageNotFound";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Loader from "./components/Loader.jsx";
 
 import { Suspense, lazy } from "react";
 
@@ -24,7 +25,14 @@ function App() {
   return (
     <>
       <Router>
-        <Suspense fallback={<div> Component is loading please wait...</div>}>
+        <Suspense
+          fallback={
+            <div>
+              {" "}
+              <Loader />
+            </div>
+          }
+        >
           <NavbarComponent />
         </Suspense>
         <Routes>
@@ -32,7 +40,12 @@ function App() {
             path="/"
             element={
               <Suspense
-                fallback={<div> Components are loading please wait...</div>}
+                fallback={
+                  <div>
+                    {" "}
+                    <Loader />
+                  </div>
+                }
               >
                 <BannerComponent />
                 <MoviesComponent />
@@ -44,7 +57,12 @@ function App() {
             path="/fav"
             element={
               <Suspense
-                fallback={<div> Components are loading please wait...</div>}
+                fallback={
+                  <div>
+                    {" "}
+                    <Loader />
+                  </div>
+                }
               >
                 <FavouriteComponent />
               </Suspense>
@@ -57,7 +75,12 @@ function App() {
             path="*"
             element={
               <Suspense
-                fallback={<div> Components are loading please wait...</div>}
+                fallback={
+                  <div>
+                    {" "}
+                    <Loader />
+                  </div>
+                }
               >
                 <PageNotfoundComponent />
               </Suspense>
